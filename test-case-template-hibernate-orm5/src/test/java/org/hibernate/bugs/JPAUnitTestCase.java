@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.hibernate.domain.Student;
+import org.hibernate.domain.Teacher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,17 +35,42 @@ public class JPAUnitTestCase {
 		entityManager.getTransaction().begin();
 		
 		Student stu = new Student();
-		stu.setName("Jack");
-		stu.setAge(88);
-		stu.setAddress("haha");
+		stu.setName("RoseSL");
+		stu.setAge(41);
+		stu.setAddress("hahaKSL");
 		stu.setEmail("1234@145.com");
-		stu.setTelephone("123456789");
-		entityManager.persist(stu);
+		stu.setTelephone("4848449SD");
+		
+		Teacher tec = new Teacher();
+		tec.setName("JJKI");
+		tec.getStudents().add(stu);
+		
+		stu.setTeacher(tec);
+		
+/*		Student stu = entityManager.find(Student.class, 1L);
+		stu.setName("Jacky");
+		
+		Teacher tec = new Teacher();
+		tec.setName("XU");
+		tec.getStudents().add(stu);*/
+		
+		
+		entityManager.persist(tec);
 //		
 		Student find = entityManager.find(Student.class, 1L);
 		System.out.println("db student : " + find);
 		
 		entityManager.getTransaction().commit();
+		entityManager.close();
+	}
+	
+//	@Test
+	public void getTeacher() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Teacher teacher = entityManager.find(Teacher.class, 6);
+		System.out.println("-----------------------------");
+		System.out.println(teacher.getStudents().size());
+		
 		entityManager.close();
 	}
 }
