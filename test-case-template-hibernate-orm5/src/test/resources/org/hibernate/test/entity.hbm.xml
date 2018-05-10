@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding='UTF-8'?>     
+    
+<!DOCTYPE hibernate-mapping PUBLIC     
+     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"     
+     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping
+	package="org.hibernate.domain.config">
+	<class name="Student" table="student">
+		<id name="id" column="id" type="java.lang.Long">
+			<generator class="identity" />
+		</id>
+		<property name="name" column="name" />
+		<property name="age" column="age" />
+		<property name="address" column="address" />
+		<property name="telephone" column="telephone" />
+		<property name="email" column="email" />
+		<many-to-one column="teacher_id" name="teacher"
+			class="org.hibernate.domain.config.Teacher"
+			cascade="all"/>
+		<many-to-one column="headmaster_id" name="headMaster"
+			class="org.hibernate.domain.config.HeadMaster"
+			cascade="all"/>
+	</class>
+
+	<class name="Teacher" table="teacher">
+		<id name="id" column="id" type="java.lang.Long">
+			<generator class="identity" />
+		</id>
+		<property name="name" column="name" />
+		<set name="students" lazy="true" inverse="true">
+			<key>
+				<column name="teacher_id" />
+			</key>
+			<one-to-many class="org.hibernate.domain.config.Student" />
+		</set>
+	</class>
+
+	<class name="HeadMaster" table="headMaster">
+		<id name="id" column="id" type="java.lang.Long">
+			<generator class="identity" />
+		</id>
+		<property name="name" column="name" />
+		<set name="students" lazy="true" inverse="true">
+			<key>
+				<column name="headmaster_id"/>
+			</key>
+			<one-to-many class="org.hibernate.domain.config.Student" />
+		</set>
+	</class>
+
+</hibernate-mapping>   
