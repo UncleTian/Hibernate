@@ -1,6 +1,5 @@
 package org.hibernate.bugs;
 
-import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -38,8 +37,8 @@ public class JPAUnitTestCase {
 
 	// Entities are auto-discovered, so just add them anywhere on class-path
 	// Add your tests, using standard JUnit.
-//	@Test
-	public void initData() throws Exception {
+	@Test
+	public void generateData() throws Exception {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		
@@ -69,6 +68,8 @@ public class JPAUnitTestCase {
 		
 		stu.setTeacher(tec);
 		stu.setHeadMaster(hm);
+		stu2.setTeacher(tec);
+		stu2.setHeadMaster(hm);
 		
 		entityManager.persist(tec);
 		entityManager.persist(hm);
@@ -80,7 +81,7 @@ public class JPAUnitTestCase {
 		entityManager.close();
 	}
 	
-	@Test
+//	@Test
 	public void deleteTest() {
 		Teacher teacher = entityManager.find(Teacher.class, 14);
 		Set<Student> tech_students = teacher.getStudents();
