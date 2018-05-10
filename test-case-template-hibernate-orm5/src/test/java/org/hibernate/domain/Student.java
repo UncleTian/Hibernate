@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +28,9 @@ public class Student {
 	@ManyToOne(targetEntity = Teacher.class)
 	@JoinColumn(name="teacher_id")
 	private Teacher teacher;
+	@ManyToOne(targetEntity = HeadMaster.class)
+	@JoinColumn(name="headmaster_id")
+	private HeadMaster headMaster;
 
 	public Long getId() {
 		return id;
@@ -84,6 +86,14 @@ public class Student {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+	
+	public HeadMaster getHeadMaster() {
+		return headMaster;
+	}
+
+	public void setHeadMaster(HeadMaster headMaster) {
+		this.headMaster = headMaster;
 	}
 
 	@Override
